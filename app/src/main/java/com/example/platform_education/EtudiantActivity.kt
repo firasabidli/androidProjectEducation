@@ -5,12 +5,17 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
+import android.widget.FrameLayout
 import com.google.android.material.bottomnavigation.BottomNavigationView
 
 class EtudiantActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_etudiant)
+        val adminContent = findViewById<FrameLayout>(R.id.adminContent)
+        val adminView = layoutInflater.inflate(R.layout.activity_admin, null, false)
+        adminContent.addView(adminView)
+
         // Récupérez le nom de l'utilisateur depuis l'intent
         val username = intent.getStringExtra("username")
 
@@ -21,10 +26,9 @@ class EtudiantActivity : AppCompatActivity() {
             val profileMenuItem = bottomNavigation.menu.findItem(R.id.profile)
             profileMenuItem.title = "$username"
         }
+
         val bottomNavigation = findViewById<BottomNavigationView>(R.id.bottom_navigation)
-        fun onBackClick(view: View) {
-            onBackPressed() // Simuler le comportement de retour
-        }
+
         // Gérer les clics sur les éléments du menu
         bottomNavigation.setOnNavigationItemSelectedListener { item ->
             when (item.itemId) {
@@ -49,10 +53,9 @@ class EtudiantActivity : AppCompatActivity() {
                 else -> false
             }
         }
-
-
-
-
-
+    }
+    fun startProfileAdmin(view: View) {
+        val intent = Intent(this, ProfileAdminActivity::class.java)
+        startActivity(intent)
     }
 }

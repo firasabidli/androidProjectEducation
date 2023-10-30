@@ -64,14 +64,14 @@ class MainActivity : AppCompatActivity() {
 
             } else if (isUserAuthenticated) {
                 Toast.makeText(this, "connexion reésute ", Toast.LENGTH_SHORT).show()
-                val intent = Intent(this, EtudiantActivity::class.java)
-                 intent.putExtra("username", username)
+                val intent = Intent(this, AdminActivity::class.java)
+                intent.putExtra("username", username)
                 startActivity(intent)
             }
             else if (username == adminUsername && password == adminPassword) {
                 // Authentification réussie pour l'administrateur
                 Toast.makeText(this, "Authentification de l'administrateur réussie", Toast.LENGTH_SHORT).show()
-                val intent = Intent(this, AdminActivity::class.java)
+                val intent = Intent(this, EtudiantActivity::class.java)
                 intent.putExtra("username", adminUsername)
                 startActivity(intent)
             } else {
