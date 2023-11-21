@@ -35,7 +35,7 @@ class SignUpActivity : AppCompatActivity() {
             // Navigate to MainActivity upon clicking "Not yet registered? SignUp Now"
             startActivity(Intent(this@SignUpActivity, MainActivity::class.java))
         }
-        val sharedPreference = getSharedPreferences("MonFichier", Context.MODE_PRIVATE)
+
         signupButton.setOnClickListener {
             val name = Editname.text.toString()
             val email = EditEmail.text.toString()
@@ -45,28 +45,6 @@ class SignUpActivity : AppCompatActivity() {
             val confirmPassword = confirmPassword.text.toString()
 
             if (valider()) {
-                val editor = sharedPreference.edit()
-                val userCount = sharedPreference.getInt("userCount", 0)
-                val newUserCount = userCount + 1
-
-                if (psd != confirmPassword) {
-                    Toast.makeText(this@SignUpActivity, "Les mots de passe ne correspondent pas", Toast.LENGTH_SHORT).show()
-                } else {
-                    editor.putString("numero$userCount", numero)
-                    editor.putString("Name$userCount", name)
-                    editor.putString("Email$userCount", email)
-                    editor.putString("Classe$userCount", classe)
-                    // Ne stockez pas les mots de passe en texte brut ici, c'est une mauvaise pratique de sécurité.
-                    // Vous devriez utiliser une technique de hachage et de stockage sécurisé.
-                    editor.putString("Password$userCount", psd)
-                    editor.putInt("Etat", 0)
-                    editor.putInt("userCount", newUserCount)
-                    editor.apply()
-
-                    Toast.makeText(this@SignUpActivity, "Enregistrement effectué", Toast.LENGTH_SHORT).show()
-                    val intent = Intent(this, MainActivity::class.java)
-                    startActivity(intent)
-                }
             }
         }
     }
