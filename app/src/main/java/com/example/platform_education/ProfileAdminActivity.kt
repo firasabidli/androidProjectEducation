@@ -71,4 +71,42 @@ class ProfileAdminActivity : AppCompatActivity() {
             etudiantAdapter.updateEtudiantList(it.toMutableList())
         }
     }
+    fun updateEtudiantState(userId: Int, newState: Int, userList: List<Etudiant>) {
+        if (newState == 1) {
+            lifecycleScope.launch {
+                try {
+                    val existingUser = userList.find { it.NumInscrit == userId }
+
+                    // Vérifiez si l'utilisateur existe
+                    if (existingUser != null) {
+
+                        val updatedUser = existingUser.copyWithNewEtat(newState)
+
+                        val response = apiService.updateEtudiantState(userId, updatedUser)
+
+                        if (response.isSuccessful) {
+                            Toast.makeText(
+                                this@ProfileAdminActivity,
+                                "État mis à jour avec succès",
+                                Toast.LENGTH_SHORT
+                            ).show()
+                        } else {
+                            Toast.makeText(
+                                this@ProfileAdminActivity,
+                                "Erreur lors de la mise à jour de l'état",
+                                Toast.LENGTH_SHORT
+                            ).show()
+                        }
+                    }
+                } catch (e: Exception) {
+                    // Gérer les exceptions
+                    Toast.makeText(
+                        this@ProfileAdminActivity,
+                        "Exception: ${e.message}",
+                        Toast.LENGTH_SHORT
+                    ).show()
+                }
+            }
+        }
+    }
 }

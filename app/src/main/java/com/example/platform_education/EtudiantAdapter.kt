@@ -26,6 +26,22 @@ class EtudiantAdapter(private var etudiantList: MutableList<Etudiant>) :
         holder.numTextView.text = "${etudiant.NumInscrit}"
         holder.nomTextView.text = "${etudiant.Name}"
         holder.checkBoxAccepter.isChecked = (etudiant.Etat == 1)
+        holder.checkBoxAccepter.setOnCheckedChangeListener { _, isChecked ->
+//            if (isChecked) {
+//                // If CheckBox is checked, update Etat to 1
+//                etudiant.Etat = 1
+//            } else {
+//                // If CheckBox is unchecked, update Etat to 0
+//                etudiant.Etat = 0
+//            }
+
+            // Notify the activity about the state change
+            (holder.itemView.context as? ProfileAdminActivity)?.updateEtudiantState(
+                etudiant.NumInscrit,
+                if (isChecked) 1 else 0,
+                etudiantList
+            )
+            }
     }
 
     override fun getItemCount(): Int = etudiantList.size
