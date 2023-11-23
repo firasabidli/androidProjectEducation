@@ -1,114 +1,134 @@
 package com.example.platform_education
 
-import android.content.Context
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import android.widget.Button
 import android.widget.EditText
 import android.widget.TextView
 import android.widget.Toast
+import androidx.appcompat.app.AlertDialog
+import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.lifecycleScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
+import retrofit2.HttpException
 
 class SignUpActivity : AppCompatActivity() {
-    lateinit var EditEmail: EditText
-    lateinit var EditPassword: EditText
-    lateinit var Editname: EditText
-    lateinit var EditNumero: EditText
-    lateinit var EditClasse: EditText
-    lateinit var confirmPassword: EditText
-    lateinit var signupButton: Button
-    lateinit var loginRedirectText: TextView
+
+    private lateinit var EditEmail: EditText
+    private lateinit var EditPassword: EditText
+    private lateinit var Editname: EditText
+    private lateinit var EditNumero: EditText
+    private lateinit var EditClasse: EditText
+    private lateinit var confirmPassword: EditText
+    private lateinit var signupButton: Button
+    private lateinit var loginRedirectText: TextView
+    private val apiService = RetrofitInstance.apiService
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_sign_up)
+
+        // Initialize views
         EditEmail = findViewById(R.id.signup_email)
         EditPassword = findViewById(R.id.password)
-        Editname=findViewById(R.id.username)
-        EditNumero=findViewById(R.id.editNumeroinscrit)
-        EditClasse=findViewById(R.id.editClass)
-        confirmPassword=findViewById(R.id.confirmPassword)
+        Editname = findViewById(R.id.username)
+        EditNumero = findViewById(R.id.editNumeroinscrit)
+        EditClasse = findViewById(R.id.editClass)
+        confirmPassword = findViewById(R.id.confirmPassword)
         signupButton = findViewById(R.id.signup_button)
         loginRedirectText = findViewById(R.id.loginRedirectText)
+
+        // Set click listener for login redirect text
         loginRedirectText.setOnClickListener {
-            // Navigate to MainActivity upon clicking "Not yet registered? SignUp Now"
             startActivity(Intent(this@SignUpActivity, MainActivity::class.java))
         }
-        val sharedPreference = getSharedPreferences("MonFichier", Context.MODE_PRIVATE)
+
+        // Set click listener for signup button
         signupButton.setOnClickListener {
-            val name = Editname.editableText.toString()
+            // Données à ajouter manuellement
+            val name = Editname.text.toString()
             val email = EditEmail.text.toString()
-            val numero = EditNumero.editableText.toString()
-            val classe = EditClasse.editableText.toString()
-            val confirmPassword = confirmPassword.editableText.toString()
-            val psd = EditPassword.editableText.toString()
+            val numero = EditNumero.text.toString().toIntOrNull() ?: 0
+            val classe = EditClasse.text.toString()
+            val password = EditPassword.text.toString()
+            val confirmpassword = confirmPassword.text.toString()
+            if (valider()) {
+                if (password != confirmpassword) {
+                    Toast.makeText(
+                        this@SignUpActivity,
+                        "Les mots de passe ne correspondent pas",
+                        Toast.LENGTH_SHORT
+                    ).show()
+                } else {
+                    val etat=0
+                    // Création de l'instance de la classe Etudiant avec les données manuelles
+                    val user = Etudiant(numero, name, email, classe, password,etat)
 
-            val editor = sharedPreference.edit()
+                    lifecycleScope.launch {
+                        try {
+                            val response = apiService.createPost(user)
 
-            if (name.isEmpty()) {
-                Toast.makeText(this@SignUpActivity, "Le nom est obligatoire", Toast.LENGTH_SHORT).show()
-                return@setOnClickListener
+                            if (response.isSuccessful) {
+                                // Traitement de la réponse en cas de succès
+                                Toast.makeText(
+                                    this@SignUpActivity,
+                                    "Inscription réussie!",
+                                    Toast.LENGTH_SHORT
+                                ).show()
+                                startActivity(Intent(this@SignUpActivity, MainActivity::class.java))
+                            } else {
+                                val errorBody = response.errorBody()?.string()
+                                // Traitement de l'erreur
+                                Toast.makeText(
+                                    this@SignUpActivity,
+                                    "Erreur: ${response.code()} - $errorBody",
+                                    Toast.LENGTH_SHORT
+                                ).show()
+                            }
+                        } catch (e: HttpException) {
+                            // Gérer les erreurs HTTP
+                            val errorBody = e.response()?.errorBody()?.string()
+                            Log.e("SignUpActivity", "HttpException: $errorBody", e)
+                            Toast.makeText(
+                                this@SignUpActivity,
+                                "Erreur HTTP: $errorBody",
+                                Toast.LENGTH_SHORT
+                            ).show()
+                        } catch (e: Exception) {
+                            // Gérer les autres exceptions
+                            Log.e("SignUpActivity", "Exception: ${e.message}", e)
+                            Toast.makeText(
+                                this@SignUpActivity,
+                                "Exception: ${e.message}",
+                                Toast.LENGTH_SHORT
+                            ).show()
+                        }
+                    }
+                }
             }
-
-            if (email.isEmpty()) {
-                Toast.makeText(this@SignUpActivity, "L'adresse e-mail est obligatoire", Toast.LENGTH_SHORT).show()
-                return@setOnClickListener
-            }
-
-            if (!android.util.Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
-                Toast.makeText(this@SignUpActivity, "L'adresse e-mail n'est pas valide", Toast.LENGTH_SHORT).show()
-                return@setOnClickListener
-            }
-
-            if (numero.isEmpty()) {
-                Toast.makeText(this@SignUpActivity, "Le numéro est obligatoire", Toast.LENGTH_SHORT).show()
-                return@setOnClickListener
-            }
-
-//            val numero: Int
-//            try {
-//                numero = numeroStr.toInt()
-//            } catch (e: NumberFormatException) {
-//                Toast.makeText(this@SignUpActivity, "Le numéro n'est pas valide", Toast.LENGTH_SHORT).show()
-//                return@setOnClickListener
-//            }
-
-            if (classe.isEmpty()) {
-                Toast.makeText(this@SignUpActivity, "La classe est obligatoire", Toast.LENGTH_SHORT).show()
-                return@setOnClickListener
-            }
-
-            if (psd.isEmpty()) {
-                Toast.makeText(this@SignUpActivity, "Le mot de passe est obligatoire", Toast.LENGTH_SHORT).show()
-                return@setOnClickListener
-            }
-
-            if (confirmPassword.isEmpty()) {
-                Toast.makeText(this@SignUpActivity, "La confirmation du mot de passe est obligatoire", Toast.LENGTH_SHORT).show()
-                return@setOnClickListener
-            }
-
-            if (psd != confirmPassword) {
-                Toast.makeText(this@SignUpActivity, "Les mots de passe ne correspondent pas", Toast.LENGTH_SHORT).show()
-                return@setOnClickListener
-            }
-
-            val userCount = sharedPreference.getInt("userCount", 0)
-            val newUserCount = userCount + 1
-
-            editor.putString("numero$userCount", numero)
-            editor.putString("Name$userCount", name)
-            editor.putString("Email$userCount", email)
-            editor.putString("Classe$userCount", classe)
-            editor.putString("Password$userCount", psd)
-            editor.putInt("Etat", 0)
-            editor.putInt("userCount", newUserCount)
-
-            editor.apply()
-
-            Toast.makeText(this@SignUpActivity, "Enregistrement effectué", Toast.LENGTH_SHORT).show()
-            val intent = Intent(this, MainActivity::class.java)
-            startActivity(intent)
         }
-
     }
+        private fun valider(): Boolean {
+            val name = Editname.text.toString()
+            val email = EditEmail.text.toString()
+            val password = EditPassword.text.toString()
+            val numero = EditNumero.text.toString()
+            val classe = EditClasse.text.toString()
+            val confirmPassword = confirmPassword.text.toString()
+
+            if (name.isEmpty() || email.isEmpty() || password.isEmpty() || numero.isEmpty() || classe.isEmpty() || confirmPassword.isEmpty()) {
+                AlertDialog.Builder(this).apply {
+                    setMessage("Les champs ne doivent pas être vides")
+                    setTitle("Error")
+                    setIcon(android.R.drawable.btn_dialog)
+                    setPositiveButton("yes") { dialogInterface, i -> finish() }
+                    create().show()
+                    return false
+                }
+            }
+            return true
+        }
 }
