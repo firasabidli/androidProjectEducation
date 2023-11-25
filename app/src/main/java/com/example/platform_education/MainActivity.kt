@@ -61,19 +61,18 @@ private lateinit var signupText:TextView
 
                     if (response.code() in 200..299 ){
                         val loginResponse = response.body()
+                        if (loginResponse != null) {
+                            val username = loginResponse.username
 
-                        if (loginResponse != null && loginResponse.success) {
-
-                                startActivity(
-                                    Intent(
-                                        this@MainActivity,
-                                        EtudiantActivity::class.java
-                                    )
-                                )
+                            if (username != null) {
+                                val intent = Intent(this@MainActivity, EtudiantActivity::class.java)
+                                intent.putExtra("username", username)
+                                startActivity(intent)
                                 finish()
+                            }
+
 
                         } else {
-
                             Toast.makeText(
                                 this@MainActivity,
                                 "Login failed",
@@ -81,7 +80,7 @@ private lateinit var signupText:TextView
                             ).show()
                         }
                     } else {
-                        val errorBody = response.errorBody()?.string()
+                        ///val errorBody = response.errorBody()?.string()
 
                             Toast.makeText(
                                 this@MainActivity,
