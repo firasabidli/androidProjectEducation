@@ -15,25 +15,10 @@ class AdminActivity : AppCompatActivity() {
         setContentView(R.layout.activity_admin)
         btnstart=findViewById(R.id.buttonStart)
         btnstart.setOnClickListener{
+
             val intent = Intent(this, ProfileAdminActivity::class.java)
             startActivity(intent)
         }
-//        btnHome=findViewById(R.id.imageButtonHome)
-//        btnEtudiant=findViewById(R.id.imageButtonliste1)
-//        btnEnse=findViewById(R.id.imageButtonliste2)
-//
-//        btnHome.setOnClickListener{
-//            val intent = Intent(this, AdminActivity::class.java)
-//            startActivity(intent)
-//        }
-//        btnEtudiant.setOnClickListener{
-//            val intent = Intent(this, ProfileAdminActivity::class.java)
-//            startActivity(intent)
-//        }
-//        btnEnse.setOnClickListener{
-//            val intent = Intent(this, TeacherActivity::class.java)
-//            startActivity(intent)
-//        }
 
     }
 }

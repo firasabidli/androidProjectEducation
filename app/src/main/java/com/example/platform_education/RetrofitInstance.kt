@@ -12,5 +12,4 @@ object RetrofitInstance {
         .build()
 
     val apiService: ApiService = retrofit.create(ApiService::class.java)
-    val authService: AuthService = retrofit.create(AuthService::class.java)
 }

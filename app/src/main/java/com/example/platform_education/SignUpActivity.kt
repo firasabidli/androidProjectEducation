@@ -80,10 +80,11 @@ class SignUpActivity : AppCompatActivity() {
                                 ).show()
                                 startActivity(Intent(this@SignUpActivity, MainActivity::class.java))
                             } else {
+                                val errorBody = response.errorBody()?.string()
                                 // Traitement de l'erreur
                                 Toast.makeText(
                                     this@SignUpActivity,
-                                    "Erreur: ${response}",
+                                    "Erreur: ${response.code()} - $errorBody",
                                     Toast.LENGTH_SHORT
                                 ).show()
                             }

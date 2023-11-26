@@ -8,9 +8,14 @@ import retrofit2.http.GET
 import retrofit2.http.POST
 import retrofit2.http.PUT
 import retrofit2.http.Path
+import retrofit2.http.Query
 
 
 interface ApiService {
+    @POST("/users/login")
+    suspend fun login(
+        @Body loginRequest:LoginRequest
+    ): Response<LoginResponse>
     @GET("/users/")
     fun getUsers(): Call<List<Etudiant>>
 
@@ -18,4 +23,6 @@ interface ApiService {
     suspend fun createPost(@Body etudiant: Etudiant): Response<ResponseBody>
     @PUT("/users/update/{userId}")
     suspend fun updateEtudiantState(@Path("userId") userId: Int, @Body updatedEtudiant: Etudiant): Response<ResponseBody>
+    @PUT("/users/update_password/{userId}")
+    suspend fun changePassword(@Path("userId") userId: String, @Body changePasswordRequest: ChangePasswordRequest): Response<ResponseBody>
 }
