@@ -4,6 +4,7 @@ import android.app.AlertDialog
 import android.app.Dialog
 import android.content.Context
 import android.os.Bundle
+import android.util.Log
 import android.widget.EditText
 import android.widget.Toast
 import androidx.coordinatorlayout.widget.CoordinatorLayout
@@ -45,7 +46,15 @@ class FormDialogFragment : DialogFragment() {
             }
             .create()
     }
+    private fun showToast(message: String) {
+        Toast.makeText(requireContext(), message, Toast.LENGTH_SHORT).show()
+    }
 
+    private fun getUserIdFromPreferences(): String? {
+        val sharedPreferences =
+            requireContext().getSharedPreferences("auth_prefs", Context.MODE_PRIVATE)
+        return sharedPreferences.getString("user_id", null)
+    }
     fun onChangePassword(oldPassword: String, newPassword: String, confirmPassword: String) {
         try {
             val apiService = RetrofitInstance.apiService
@@ -56,13 +65,20 @@ class FormDialogFragment : DialogFragment() {
                     if (newPassword != confirmPassword) {
                         showToast("Les nouveaux mots de passe ne correspondent pas.")
                     } else {
+
                         val changePasswordRequest = ChangePasswordRequest(oldPassword, newPassword)
                         val response = apiService.changePassword(userId, changePasswordRequest)
-                        Toast.makeText(requireContext(), "Reponse: ${response.isSuccessful}", Toast.LENGTH_SHORT).show()
+
                         if (response.isSuccessful) {
-                            showToast("Mot de passe changé avec succès")
+                            if (response.code() == 200) {
+                                showToast("Mot de passe changé avec succès")
+                            } else {
+                                showToast("Réponse inattendue de l'API. Code : ${response.code()}")
+                                Log.e("API_ERROR", "Code d'erreur : ${response.code()}, Message : ${response.message()}")
+                            }
                         } else {
                             showToast("Échec du changement de mot de passe. Veuillez vérifier votre ancien mot de passe.")
+                            Log.e("API_ERROR", "Code d'erreur : ${response.code()}, Message : ${response.message()}")
                         }
                     }
                 }
@@ -75,13 +91,5 @@ class FormDialogFragment : DialogFragment() {
         }
     }
 
-    private fun showToast(message: String) {
-        Toast.makeText(requireContext(), message, Toast.LENGTH_SHORT).show()
-    }
 
-    private fun getUserIdFromPreferences(): String? {
-        val sharedPreferences =
-            requireContext().getSharedPreferences("auth_prefs", Context.MODE_PRIVATE)
-        return sharedPreferences.getString("user_id", null)
-    }
 }
