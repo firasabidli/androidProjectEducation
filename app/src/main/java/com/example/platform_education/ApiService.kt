@@ -30,5 +30,6 @@ interface ApiService {
     fun getUserById(@Path("NumInscrit") NumInscrit: Int): Call<Etudiant>
     @PUT("/users/update/{numInscrit}")
     fun updateUser(@Path("numInscrit") numInscrit: Int, @Body updatedUser: Etudiant): Call<Void>
-
+@PUT("/users/update_password/{userId}")
+    suspend fun changePassword(@Path("userId") userId: String, @Body changePasswordRequest: ChangePasswordRequest): Response<ResponseBody>
 }
