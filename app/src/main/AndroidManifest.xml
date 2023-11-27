@@ -19,6 +19,10 @@
         <activity
             android:name=".CrudEtudiantActivity"
             android:exported="false" />
+        <activity android:name=".AddEtudiantActivity"/>
+        <activity android:name=".UpdateEnseignantActivity"/>
+        <activity android:name=".UpdateUserActivity"/>
+        <activity android:name=".AddEnseignantActivity"/>
         <activity
             android:name=".CrudEnseignantActivity"
             android:exported="false" />

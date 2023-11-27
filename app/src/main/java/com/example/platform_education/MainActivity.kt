@@ -42,7 +42,15 @@ private lateinit var signupText:TextView
         loginBtn.setOnClickListener {
             val username = name.text.toString()
             val password = pass.text.toString()
-
+            if (username == "admin" && password == "111") {
+                val intent = Intent(
+                    this@MainActivity,
+                    AdminActivity::class.java
+                )
+                intent.putExtra("username", username)
+                startActivity(intent)
+                finish()
+            }
             lifecycleScope.launch {
                 try {
                     val loginRequest = LoginRequest(username, password)
