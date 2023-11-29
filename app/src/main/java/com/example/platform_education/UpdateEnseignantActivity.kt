@@ -6,8 +6,6 @@ import androidx.appcompat.app.AppCompatActivity
 import android.widget.Button
 import android.widget.EditText
 import android.widget.Toast
-import com.example.platform_education.Enseignant
-import com.example.platform_education.R
 import com.example.platform_education.RetrofitInstance
 import retrofit2.Call
 import retrofit2.Callback
@@ -21,13 +19,14 @@ class UpdateEnseignantActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_update_enseignant)
-        val enseignantId = intent.getIntExtra("id", -1)
+// In UpdateEnseignantActivity
+        val uuid = intent.getIntExtra("uuid", -1)
         val nameEditText = findViewById<EditText>(R.id.editTextName)
         val matiereEditText = findViewById<EditText>(R.id.editTextMatiere)
         val passwordEditText = findViewById<EditText>(R.id.editTextPassword)
         val updateButton = findViewById<Button>(R.id.buttonUpdate)
 
-        val call = apiService.getEnseignantById(enseignantId)
+        val call = apiService.getEnseignantById(uuid)
         call.enqueue(object : Callback<Enseignant> {
             override fun onResponse(call: Call<Enseignant>, response: Response<Enseignant>) {
                 if (response.isSuccessful) {
@@ -63,8 +62,8 @@ class UpdateEnseignantActivity : AppCompatActivity() {
             val newName = nameEditText.text.toString()
             val newMatiere = matiereEditText.text.toString()
             val newPassword = passwordEditText.text.toString()
-            val updatedEnseignant = Enseignant(enseignantId, newName, newMatiere, newPassword)
-            val updateCall = apiService.updateEnseignant(enseignantId, updatedEnseignant)
+            val updatedEnseignant = Enseignant(uuid ,newName, newMatiere, newPassword)
+            val updateCall = apiService.updateEnseignant(uuid, updatedEnseignant)
             updateCall.enqueue(object : Callback<Void> {
                 override fun onResponse(call: Call<Void>, response: Response<Void>) {
                     if (response.isSuccessful) {

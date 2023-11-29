@@ -13,6 +13,7 @@ import retrofit2.HttpException
 
 class AddEnseignantActivity : AppCompatActivity() {
 
+    private lateinit var editId: EditText
     private lateinit var editName: EditText
     private lateinit var editEmail: EditText
     private lateinit var editMatiere: EditText
@@ -26,6 +27,7 @@ class AddEnseignantActivity : AppCompatActivity() {
         setContentView(R.layout.activity_add_enseignant)
 
         // Initialize views
+        editId = findViewById(R.id.editId)
         editName = findViewById(R.id.editName)
         editEmail = findViewById(R.id.editEmail)
         editMatiere = findViewById(R.id.editMatiere)
@@ -35,6 +37,7 @@ class AddEnseignantActivity : AppCompatActivity() {
 
         addButton.setOnClickListener {
             if (validate()) {
+                val id = editId.text.toString().toIntOrNull() ?: 0
                 val name = editName.text.toString()
                 val email = editEmail.text.toString()
                 val matiere = editMatiere.text.toString()
@@ -44,7 +47,7 @@ class AddEnseignantActivity : AppCompatActivity() {
                 if (password != confirmPasswordValue) {
                     Toast.makeText(this, "Les mots de passe ne correspondent pas", Toast.LENGTH_SHORT).show()
                 } else {
-                    val teacher = Enseignant(id = 0, name = name, matiere = matiere, password = password)
+                    val teacher = Enseignant( id ,name, matiere, password)
 
                     lifecycleScope.launch {
                         try {
@@ -71,13 +74,14 @@ class AddEnseignantActivity : AppCompatActivity() {
     }
 
     private fun validate(): Boolean {
+        val id = editId.text.toString()
         val name = editName.text.toString()
         val email = editEmail.text.toString()
         val matiere = editMatiere.text.toString()
         val password = editPassword.text.toString()
         val confirmPasswordValue = confirmPassword.text.toString()
 
-        if (name.isEmpty() || email.isEmpty() || matiere.isEmpty() || password.isEmpty() || confirmPasswordValue.isEmpty()) {
+        if (id.isEmpty() || name.isEmpty() || email.isEmpty() || matiere.isEmpty() || password.isEmpty() || confirmPasswordValue.isEmpty()) {
             AlertDialog.Builder(this).apply {
                 setMessage("Les champs ne doivent pas être vides")
                 setTitle("Error")

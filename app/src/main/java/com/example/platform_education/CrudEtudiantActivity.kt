@@ -173,7 +173,9 @@ class CrudEtudiantActivity : AppCompatActivity() {
                 ).show()
             }
         })
+
     }
+
 }
 
 

@@ -49,14 +49,14 @@ interface ApiService {
     @GET("/enseignants/")
     fun getEnseignants(): Call<List<Enseignant>>
 
-    @PUT("/enseignants/update/{id}")
-    fun updateEnseignant(@Path("id") id: Int, @Body enseignant: Enseignant): Call<Void>
+    @PUT("/enseignants/update/{uuid}")
+    fun updateEnseignant(@Path("uuid") uuid: Int, @Body enseignant: Enseignant): Call<Void>
 
-    @GET("/enseignants/{id}")
-    fun getEnseignantById(@Path("id") enseignantId: Int): Call<Enseignant>
+    @GET("/enseignants/")
+    fun getEnseignantById(@Path("uuid") enseignantId: Int): Call<Enseignant>
 
-    @DELETE("/enseignants/delete/{id}")
-    fun deleteEnseignant(@Path("id") id: Int): Call<ResponseBody>
+    @DELETE("/enseignants/delete/{uuid}")
+    fun deleteEnseignant(@Path("uuid") uuid: Int): Call<ResponseBody>
 
     @POST("/enseignants/posts")
     suspend fun addEnseignant(@Body enseignant: Enseignant): Response<Enseignant>

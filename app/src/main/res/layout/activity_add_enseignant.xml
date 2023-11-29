@@ -10,6 +10,16 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:hint="Name" />
+    <EditText
+        android:id="@+id/editId"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/confirmPassword"
+        android:layout_marginTop="16dp"
+        android:hint="ID"
+        android:inputType="number"
+        />
+
 
     <EditText
         android:id="@+id/editEmail"
@@ -40,11 +50,11 @@
         android:layout_below="@id/editPassword"
         android:inputType="textPassword"
         android:hint="Confirm Password" />
-
     <Button
         android:id="@+id/addButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@id/confirmPassword"
+        android:layout_marginTop="70dp"
         android:text="Add Enseignant" />
 </RelativeLayout>

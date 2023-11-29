@@ -66,8 +66,7 @@ class CrudEnseignantActivity : AppCompatActivity() {
                             val updateButton = Button(this@CrudEnseignantActivity)
                             updateButton.text = "Update"
                             updateButton.setOnClickListener {
-                                // Call the method to handle the update
-                                handleUpdateButtonClick(enseignant.id)
+                                handleUpdateButtonClick(enseignant.uuid)
                             }
 
                             val deleteButton = Button(this@CrudEnseignantActivity)
@@ -110,24 +109,20 @@ class CrudEnseignantActivity : AppCompatActivity() {
         })
     }
 
-    private fun handleUpdateButtonClick(id: Int) {
-        // Create an Intent to start the UpdateEnseignantActivity
+    private fun handleUpdateButtonClick(uuid: Int) {
         val intent = Intent(this@CrudEnseignantActivity, UpdateEnseignantActivity::class.java)
-        // Pass the enseignant id to the UpdateEnseignantActivity
-        intent.putExtra("id", id)
-        // Start the UpdateEnseignantActivity
+        intent.putExtra("uuid", uuid)
         startActivity(intent)
     }
 
 
     private fun handleDeleteButtonClick(enseignant: Enseignant) {
-        // Call the method to handle the delete
-        deleteEnseignant(enseignant)
+        deleteEnseignant(enseignant.uuid)
     }
 
-    private fun deleteEnseignant(enseignant: Enseignant) {
-        // Faites appel à l'API pour supprimer l'enseignant
-        val call = apiService.deleteEnseignant(enseignant.id)
+    private fun deleteEnseignant(uuid: Int) {
+        // Call the method to handle the delete using uuid
+        val call = apiService.deleteEnseignant(uuid)
         call.enqueue(object : Callback<ResponseBody> {
             override fun onResponse(call: Call<ResponseBody>, response: Response<ResponseBody>) {
                 if (response.isSuccessful) {
