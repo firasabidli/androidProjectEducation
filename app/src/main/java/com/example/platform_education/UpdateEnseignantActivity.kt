@@ -6,6 +6,8 @@ import androidx.appcompat.app.AppCompatActivity
 import android.widget.Button
 import android.widget.EditText
 import android.widget.Toast
+import com.example.platform_education.Enseignant
+import com.example.platform_education.R
 import com.example.platform_education.RetrofitInstance
 import retrofit2.Call
 import retrofit2.Callback
@@ -19,7 +21,7 @@ class UpdateEnseignantActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_update_enseignant)
-// In UpdateEnseignantActivity
+
         val uuid = intent.getIntExtra("uuid", -1)
         val nameEditText = findViewById<EditText>(R.id.editTextName)
         val matiereEditText = findViewById<EditText>(R.id.editTextMatiere)
@@ -62,7 +64,7 @@ class UpdateEnseignantActivity : AppCompatActivity() {
             val newName = nameEditText.text.toString()
             val newMatiere = matiereEditText.text.toString()
             val newPassword = passwordEditText.text.toString()
-            val updatedEnseignant = Enseignant(uuid ,newName, newMatiere, newPassword)
+            val updatedEnseignant = Enseignant(uuid, newName, newMatiere, newPassword)
             val updateCall = apiService.updateEnseignant(uuid, updatedEnseignant)
             updateCall.enqueue(object : Callback<Void> {
                 override fun onResponse(call: Call<Void>, response: Response<Void>) {
