@@ -24,7 +24,8 @@ interface ApiService {
 
     @POST("/users/posts")
     suspend fun createPost(@Body etudiant: Etudiant): Response<ResponseBody>
-
+    @DELETE("/users/delete/{numInscrit}")
+    suspend fun delete(@Path("numInscrit") numInscrit: Int): Response<Void>
     @PUT("/users/update/{userId}")
     suspend fun updateEtudiantState(
         @Path("userId") userId: Int,

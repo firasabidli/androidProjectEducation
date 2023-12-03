@@ -16,7 +16,7 @@
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:orientation="vertical"
             android:padding="16dp">
 
@@ -36,14 +36,28 @@
                 android:text="Numéro d'inscription : 123456"
                 android:textSize="16sp" />
 
-            <CheckBox
-                android:id="@+id/checkBox"
-                android:layout_width="138dp"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="250dp"
-                android:text="Accepter" />
+            <LinearLayout
+                android:layout_width="368dp"
+                android:layout_height="59dp">
 
+                <Button
+                    android:id="@+id/checkBox"
+                    style="@style/Widget.AppCompat.Button"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="100dp"
+                    android:background="#1E88E5"
+                    android:text="Accepter" />
 
+                <Button
+                    android:id="@+id/rejeter"
+                    style="@style/Widget.AppCompat.Button"
+                    android:layout_width="104dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    android:background="#9F192D"
+                    android:text="Rejeter" />
+            </LinearLayout>
 
         </LinearLayout>
     </androidx.cardview.widget.CardView>

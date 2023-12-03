@@ -63,21 +63,18 @@ class ProfileAdminActivity : AppCompatActivity() {
                     true
                 }
                 R.id.Accepte -> {
-                    // Gérer l'élément du menu Profile Admin
                     val intent = Intent(this, ProfileAdminActivity::class.java)
                     startActivity(intent)
                     drawerLayout.closeDrawer(GravityCompat.START)
                     true
                 }
                 R.id.ListeEtudiant -> {
-                    // Gérer l'élément du menu Profile Admin
                     val intent = Intent(this, CrudEtudiantActivity::class.java)
                     startActivity(intent)
                     drawerLayout.closeDrawer(GravityCompat.START)
                     true
                 }
                 R.id.ListeEnseignant -> {
-                    // Gérer l'élément du menu Profile Admin
                     val intent = Intent(this, CrudEnseignantActivity::class.java)
                     startActivity(intent)
                     drawerLayout.closeDrawer(GravityCompat.START)
@@ -87,7 +84,7 @@ class ProfileAdminActivity : AppCompatActivity() {
                     // Gérez la déconnexion
                     val intent = Intent(this, MainActivity::class.java)
                     startActivity(intent)
-                     true
+                    true
                 }
                 else -> false
             }
@@ -101,7 +98,12 @@ class ProfileAdminActivity : AppCompatActivity() {
     private fun setupRecyclerView() {
         val recyclerView = findViewById<RecyclerView>(R.id.recyclerView)
         recyclerView.layoutManager = LinearLayoutManager(this)
-        etudiantAdapter = EtudiantAdapter(mutableListOf())
+        //etudiantAdapter = EtudiantAdapter(mutableListOf())
+        etudiantAdapter = EtudiantAdapter(mutableListOf()) { etudiant ->
+            // Handle the "Reject" button click
+            deleteEtudiant(etudiant)
+        }
+
         recyclerView.adapter = etudiantAdapter
     }
 
@@ -140,7 +142,7 @@ class ProfileAdminActivity : AppCompatActivity() {
 
     private fun updateEtudiantsList(etudiants: List<Etudiant>?) {
         etudiants?.let {
-            etudiantAdapter.updateEtudiantList(it.toMutableList())
+            etudiantAdapter.updateEtudiantList(it)
         }
     }
     fun updateEtudiantState(userId: Int, newState: Int, userList: List<Etudiant>) {
@@ -176,6 +178,38 @@ class ProfileAdminActivity : AppCompatActivity() {
                         Toast.LENGTH_SHORT
                     ).show()
                 }
+            }
+        }
+    }
+
+    private fun deleteEtudiant(etudiant: Etudiant) {
+        lifecycleScope.launch {
+            try {
+                val response = apiService.delete(etudiant.NumInscrit)
+
+                if (response.code() in 200 until 300) {
+                    Toast.makeText(
+                        this@ProfileAdminActivity,
+                        "Étudiant supprimé avec succès",
+                        Toast.LENGTH_SHORT
+                    ).show()
+
+                    // Remove the student from the adapter's list
+                    etudiantAdapter.removeEtudiant(etudiant)
+                } else {
+                    Toast.makeText(
+                        this@ProfileAdminActivity,
+                        "Erreur lors de la suppression de l'étudiant",
+                        Toast.LENGTH_SHORT
+                    ).show()
+                }
+            } catch (e: Exception) {
+                // Handle exceptions
+                Toast.makeText(
+                    this@ProfileAdminActivity,
+                    "Exception: ${e.message}",
+                    Toast.LENGTH_SHORT
+                ).show()
             }
         }
     }

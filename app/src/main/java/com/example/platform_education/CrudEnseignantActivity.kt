@@ -53,7 +53,7 @@ class CrudEnseignantActivity : AppCompatActivity() {
                                 0,
                                 R.style.MyTextViewStyle
                             )
-                            nameTextView.text = "${enseignant.name}"
+                            nameTextView.text = "${enseignant.Name}"
 
                             val matiereTextView = TextView(
                                 this@CrudEnseignantActivity,
@@ -61,7 +61,7 @@ class CrudEnseignantActivity : AppCompatActivity() {
                                 0,
                                 R.style.MyTextViewStyle
                             )
-                            matiereTextView.text = "${enseignant.matiere}"
+                            matiereTextView.text = "${enseignant.Matiere}"
 
                             val updateButton = Button(this@CrudEnseignantActivity)
                             updateButton.text = "Update"

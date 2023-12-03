@@ -34,9 +34,9 @@ class UpdateEnseignantActivity : AppCompatActivity() {
                 if (response.isSuccessful) {
                     val enseignant = response.body()
                     if (enseignant != null) {
-                        nameEditText.setText(enseignant.name)
-                        matiereEditText.setText(enseignant.matiere)
-                        passwordEditText.setText(enseignant.password)
+                        nameEditText.setText(enseignant.Name)
+                        matiereEditText.setText(enseignant.Matiere)
+                        passwordEditText.setText(enseignant.Password)
                     }
                 } else {
                     // Handle API request errors here
