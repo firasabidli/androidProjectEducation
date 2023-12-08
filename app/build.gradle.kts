@@ -1,6 +1,8 @@
 plugins {
     id("com.android.application")
     id("org.jetbrains.kotlin.android")
+    id("com.google.gms.google-services")
+    id ("com.google.android.libraries.mapsplatform.secrets-gradle-plugin")
 }
 
 android {
@@ -62,5 +64,8 @@ android {
         implementation ("com.squareup.retrofit2:converter-gson:2.9.0")
         implementation ("org.jetbrains.kotlinx:kotlinx-coroutines-android:1.3.9")
         implementation ("com.jakewharton.retrofit:retrofit2-kotlin-coroutines-adapter:0.9.2")
+        //Location
+        implementation ("com.google.android.gms:play-services-location:18.0.0")
+        implementation ("com.google.android.gms:play-services-maps:18.1.0")
 
     }

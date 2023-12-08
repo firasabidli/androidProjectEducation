@@ -14,6 +14,7 @@ import androidx.drawerlayout.widget.DrawerLayout
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.material.navigation.NavigationView
 import kotlinx.coroutines.launch
 import retrofit2.Call
@@ -76,6 +77,12 @@ class ProfileAdminActivity : AppCompatActivity() {
                 }
                 R.id.ListeEnseignant -> {
                     val intent = Intent(this, CrudEnseignantActivity::class.java)
+                    startActivity(intent)
+                    drawerLayout.closeDrawer(GravityCompat.START)
+                    true
+                }
+                R.id.nav_location ->{
+                    val intent = Intent(this, LocationActivity::class.java)
                     startActivity(intent)
                     drawerLayout.closeDrawer(GravityCompat.START)
                     true

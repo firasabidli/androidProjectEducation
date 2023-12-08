@@ -8,6 +8,7 @@
     <uses-permission android:name="android.permission.WAKE_LOCK" />
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+
     <application
         android:allowBackup="true"
         android:dataExtractionRules="@xml/data_extraction_rules"
@@ -19,12 +20,15 @@
         android:theme="@style/Theme.Platformeducation"
         tools:targetApi="31">
         <activity
+            android:name=".LocationActivity"
+            android:exported="false" />
+        <activity
             android:name=".CrudEtudiantActivity"
             android:exported="false" />
-        <activity android:name=".AddEtudiantActivity"/>
-        <activity android:name=".UpdateEnseignantActivity"/>
-        <activity android:name=".UpdateUserActivity"/>
-        <activity android:name=".AddEnseignantActivity"/>
+        <activity android:name=".AddEtudiantActivity" />
+        <activity android:name=".UpdateEnseignantActivity" />
+        <activity android:name=".UpdateUserActivity" />
+        <activity android:name=".AddEnseignantActivity" />
         <activity
             android:name=".CrudEnseignantActivity"
             android:exported="false" />
@@ -53,6 +57,9 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <meta-data
+            android:name="com.google.android.geo.API_KEY"
+            android:value="AIzaSyAEZnP1EQl0QTDspVMsKO9KRXHIR0bTRX4" />
     </application>
 
 </manifest>
