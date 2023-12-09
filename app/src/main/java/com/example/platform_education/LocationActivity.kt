@@ -23,60 +23,47 @@ class LocationActivity : AppCompatActivity(), OnMapReadyCallback {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_location)
 
-        // Obtain the SupportMapFragment and get notified when the map is ready to be used.
-        val mapFragment = supportFragmentManager.findFragmentById(R.id.map) as SupportMapFragment
-        mapFragment.getMapAsync(this)
-
-        fusedLocationClient = LocationServices.getFusedLocationProviderClient(this)
-    }
-
-    override fun onMapReady(googleMap: GoogleMap) {
-        mMap = googleMap
-
-        // Check for location permissions
-        if (ContextCompat.checkSelfPermission(
-                this,
-                android.Manifest.permission.ACCESS_FINE_LOCATION
-            ) == PackageManager.PERMISSION_GRANTED
-        ) {
-            // Enable My Location layer
-            mMap.isMyLocationEnabled = true
-
-            // Get and display the user's current location on the map
-            fusedLocationClient.lastLocation
-                .addOnSuccessListener { location ->
-                    location?.let {
-                        val userLatLng = LatLng(it.latitude, it.longitude)
-                        mMap.addMarker(MarkerOptions().position(userLatLng).title("Your Location"))
-                        mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(userLatLng, 15f))
-                    }
-                }
-        } else {
-            // Request location permissions
-            ActivityCompat.requestPermissions(
-                this,
-                arrayOf(android.Manifest.permission.ACCESS_FINE_LOCATION),
-                LOCATION_PERMISSION_REQUEST_CODE
-            )
+            val mapFragment = supportFragmentManager.findFragmentById(R.id.map) as SupportMapFragment
+            mapFragment.getMapAsync(this)
         }
-    }
 
-    override fun onRequestPermissionsResult(
-        requestCode: Int,
-        permissions: Array<out String>,
-        grantResults: IntArray
-    ) {
-        super.onRequestPermissionsResult(requestCode, permissions, grantResults)
+        override fun onMapReady(googleMap: GoogleMap) {
+            mMap = googleMap
 
-        // Handle the result of the permission request
-        if (requestCode == LOCATION_PERMISSION_REQUEST_CODE) {
-            if (grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                // Permission granted, perform your location-related operations here
-                // For example, you can call onMapReady again or update the map
+            // Check for location permissions
+            if (ActivityCompat.checkSelfPermission(
+                    this,
+                    android.Manifest.permission.ACCESS_FINE_LOCATION
+                ) == PackageManager.PERMISSION_GRANTED
+            ) {
+                mMap.isMyLocationEnabled = true
+
+                // Add a marker at the specified location and move the camera
+                val bouSalemLocation = LatLng(36.4495, 8.7899) // Replace with the actual coordinates
+                mMap.addMarker(MarkerOptions().position(bouSalemLocation).title("Marker in Bou Salem"))
+                mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(bouSalemLocation, 15f))
             } else {
-                // Permission denied, handle accordingly or close the activity
-                finish()
+                // Request location permissions
+                ActivityCompat.requestPermissions(
+                    this,
+                    arrayOf(android.Manifest.permission.ACCESS_FINE_LOCATION),
+                    LOCATION_PERMISSION_REQUEST_CODE
+                )
+            }
+        }
+
+        override fun onRequestPermissionsResult(
+            requestCode: Int,
+            permissions: Array<out String>,
+            grantResults: IntArray
+        ) {
+            super.onRequestPermissionsResult(requestCode, permissions, grantResults)
+
+            if (requestCode == LOCATION_PERMISSION_REQUEST_CODE) {
+                if (grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                    // Permission granted, refresh the map
+                    onMapReady(mMap)
+                }
             }
         }
     }
-}
