@@ -53,8 +53,8 @@ interface ApiService {
     @PUT("/enseignants/update/{uuid}")
     fun updateEnseignant(@Path("uuid") uuid: Int, @Body enseignant: Enseignant): Call<Void>
 
-    @GET("/enseignants/")
-    fun getEnseignantById(@Path("uuid") enseignantId: Int): Call<Enseignant>
+    @GET("/enseignants/{uuid}")
+    fun getEnseignantById(@Path("uuid") uuid: Int): Call<Enseignant>
 
     @DELETE("/enseignants/delete/{uuid}")
     fun deleteEnseignant(@Path("uuid") uuid: Int): Call<ResponseBody>
