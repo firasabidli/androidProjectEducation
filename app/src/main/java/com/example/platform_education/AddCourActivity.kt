@@ -37,9 +37,15 @@ class AddCourActivity : AppCompatActivity() {
 
         val nomEditText: EditText? = findViewById(R.id.editTextNom)
         val descriptionEditText: EditText? = findViewById(R.id.editTextDescription)
+        val btnAffiche:Button=findViewById(R.id.buttonaffiche)
         fichierEditText = findViewById(R.id.editTextFichier)
         val buttonSelectFile: Button = findViewById(R.id.buttonSelectFile)
-
+        btnAffiche.setOnClickListener {
+            val intent =
+                Intent(this@AddCourActivity, AffichageCourActivity::class.java)
+            startActivity(intent)
+            finish()
+        }
         buttonSelectFile.setOnClickListener {
             // Launch the intent to select a file
             val intent = Intent(Intent.ACTION_GET_CONTENT)
@@ -52,7 +58,7 @@ class AddCourActivity : AppCompatActivity() {
         val addButton: Button = findViewById(R.id.buttonAjouterCours)
         addButton.setOnClickListener {
             // Retrieve values when the button is clicked
-            val nom = nomEditText?.text.toString()
+            val title = nomEditText?.text.toString()
             val description = descriptionEditText?.text.toString()
 
             if (selectedFilePath != null) {
@@ -71,11 +77,11 @@ class AddCourActivity : AppCompatActivity() {
                             // Prepare file part for multipart request
                             val fileRequestBody = file.asRequestBody("multipart/form-data".toMediaTypeOrNull())
                             val filePart =
-                                MultipartBody.Part.createFormData("fichier", file.name, fileRequestBody)
+                                MultipartBody.Part.createFormData("file", file.name, fileRequestBody)
 
                             // Prepare other parts of the request
                             val nomRequestBody =
-                                nom.toRequestBody("text/plain".toMediaTypeOrNull())
+                                title.toRequestBody("text/plain".toMediaTypeOrNull())
                             val descriptionRequestBody =
                                 description.toRequestBody("text/plain".toMediaTypeOrNull())
 

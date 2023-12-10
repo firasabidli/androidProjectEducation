@@ -68,7 +68,7 @@ interface ApiService {
     @Multipart
     @POST("/Ajoutercourses")
     suspend fun addCourse(
-        @Part("nom") nom: RequestBody,
+        @Part("title") title: RequestBody,
         @Part("description") description: RequestBody,
         @Part file: MultipartBody.Part
     ): Response<ResponseBody>

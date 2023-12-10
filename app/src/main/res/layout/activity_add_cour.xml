@@ -44,6 +44,12 @@
         android:text="Sélectionner un fichier" />
 
 
-
+    <Button
+        android:id="@+id/buttonaffiche"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/editTextDescription"
+        android:layout_marginTop="16dp"
+        android:text="Afficher liste des cours" />
 
 </LinearLayout>
