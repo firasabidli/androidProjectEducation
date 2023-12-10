@@ -84,6 +84,10 @@ private lateinit var signupText:TextView
                                         "Welcome, Enseignant!",
                                         Toast.LENGTH_SHORT
                                     ).show()
+                                    val intent =
+                                        Intent(this@MainActivity, AddCourActivity::class.java)
+                                    startActivity(intent)
+                                    finish()
                                 }
                                 "admin" -> {
                                    val intent=Intent(

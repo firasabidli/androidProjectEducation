@@ -8,6 +8,7 @@
     <uses-permission android:name="android.permission.WAKE_LOCK" />
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
 
     <application
         android:allowBackup="true"
@@ -19,6 +20,12 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Platformeducation"
         tools:targetApi="31">
+        <activity
+            android:name=".AffichageCourActivity"
+            android:exported="false" />
+        <activity
+            android:name=".AddCourActivity"
+            android:exported="false" />
         <activity
             android:name=".LocationActivity"
             android:exported="false" />
@@ -57,6 +64,7 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
         <meta-data
             android:name="com.google.android.geo.API_KEY"
             android:value="AIzaSyAEZnP1EQl0QTDspVMsKO9KRXHIR0bTRX4" />

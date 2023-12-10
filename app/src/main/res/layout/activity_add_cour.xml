@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingLeft="16dp"
+    android:paddingTop="16dp"
+    android:paddingRight="16dp"
+    android:orientation="vertical"
+    android:paddingBottom="16dp"
+    tools:context=".AddCourActivity">
+    <Button
+        android:id="@+id/buttonAjouterCours"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:text="Ajouter le cours" />
+    <EditText
+        android:id="@+id/editTextNom"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Nom du cours"/>
+
+    <EditText
+        android:id="@+id/editTextDescription"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/editTextNom"
+        android:layout_marginTop="8dp"
+        android:hint="Description du cours"/>
+    <EditText
+        android:id="@+id/editTextFichier"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/editTextNom"
+        android:layout_marginTop="8dp"
+        android:hint=""/>
+    <Button
+        android:id="@+id/buttonSelectFile"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/editTextDescription"
+        android:layout_marginTop="16dp"
+        android:text="Sélectionner un fichier" />
+
+
+
+
+</LinearLayout>

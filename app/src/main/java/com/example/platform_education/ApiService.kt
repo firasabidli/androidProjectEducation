@@ -1,13 +1,17 @@
 package com.example.platform_education
 
+import okhttp3.MultipartBody
+import okhttp3.RequestBody
 import okhttp3.ResponseBody
 import retrofit2.Call
 import retrofit2.Response
 import retrofit2.http.Body
 import retrofit2.http.DELETE
 import retrofit2.http.GET
+import retrofit2.http.Multipart
 import retrofit2.http.POST
 import retrofit2.http.PUT
+import retrofit2.http.Part
 import retrofit2.http.Path
 
 interface ApiService {
@@ -61,4 +65,11 @@ interface ApiService {
 
     @POST("/enseignants/posts")
     suspend fun addEnseignant(@Body enseignant: Enseignant): Response<Enseignant>
+    @Multipart
+    @POST("/Ajoutercourses")
+    suspend fun addCourse(
+        @Part("nom") nom: RequestBody,
+        @Part("description") description: RequestBody,
+        @Part file: MultipartBody.Part
+    ): Response<ResponseBody>
 }

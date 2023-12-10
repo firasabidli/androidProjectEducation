@@ -40,6 +40,7 @@ android {
 //        jcenter()
 //        mavenCentral() // You may already have this, but it's good to check
 //    }
+
 }
 
 
@@ -67,5 +68,10 @@ android {
         //Location
         implementation ("com.google.android.gms:play-services-location:18.0.0")
         implementation ("com.google.android.gms:play-services-maps:18.1.0")
+        //Volley
+        implementation ("com.android.volley:volley:1.2.0")
+        //implementation("com.theartofdev.edmodo:android-image-cropper:2.8.1")
+        //implementation (files("path/to/local/copy/android-image-cropper-2.8.1.jar"))
+        implementation ("com.squareup.okhttp3:okhttp:4.9.1")
 
     }
