@@ -1,5 +1,6 @@
 package com.example.platform_education
 
+import android.annotation.SuppressLint
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
@@ -17,6 +18,7 @@ import retrofit2.Response
 class CrudEnseignantActivity : AppCompatActivity() {
     private val apiService = RetrofitInstance.apiService
 
+    @SuppressLint("MissingInflatedId")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_crud_enseignant)
