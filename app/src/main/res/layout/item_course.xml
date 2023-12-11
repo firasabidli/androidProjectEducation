@@ -30,10 +30,15 @@
         android:layout_height="wrap_content"
         android:textSize="16sp"
         android:layout_marginTop="4dp"/>
+
     <Button
         android:id="@+id/btnedit"
-        android:layout_width="match_parent"
+        android:layout_width="241dp"
         android:layout_height="wrap_content"
         android:text="Edit" />
-
+        <Button
+            android:id="@+id/btndelete"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:text="delete"></Button>
 </LinearLayout>
