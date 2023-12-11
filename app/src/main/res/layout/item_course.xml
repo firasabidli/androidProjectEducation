@@ -24,5 +24,16 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Course File" />
+    <TextView
+        android:id="@+id/idTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="16sp"
+        android:layout_marginTop="4dp"/>
+    <Button
+        android:id="@+id/btnedit"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Edit" />
 
 </LinearLayout>
