@@ -8,6 +8,7 @@ import android.os.Bundle
 import android.util.Log
 import android.widget.Button
 import android.widget.EditText
+import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.lifecycleScope
@@ -28,7 +29,7 @@ import java.io.IOException
 class AddCourActivity : AppCompatActivity() {
 
     private val SELECT_FILE_REQUEST_CODE = 1
-    private lateinit var fichierEditText: EditText
+    private lateinit var fichierEditText: TextView
     private var selectedFilePath: ByteArray? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -37,6 +38,8 @@ class AddCourActivity : AppCompatActivity() {
 
         val nomEditText: EditText? = findViewById(R.id.editTextNom)
         val descriptionEditText: EditText? = findViewById(R.id.editTextDescription)
+        val matiereEditText: EditText? = findViewById(R.id.editTextMatiere)
+        val classeEditText: EditText? = findViewById(R.id.editTextClasse)
         val btnAffiche:Button=findViewById(R.id.buttonaffiche)
         fichierEditText = findViewById(R.id.editTextFichier)
         val buttonSelectFile: Button = findViewById(R.id.buttonSelectFile)
@@ -60,6 +63,8 @@ class AddCourActivity : AppCompatActivity() {
             // Retrieve values when the button is clicked
             val title = nomEditText?.text.toString()
             val description = descriptionEditText?.text.toString()
+            val matiere = matiereEditText?.text.toString()
+            val classe = classeEditText?.text.toString()
 
             if (selectedFilePath != null) {
                 val file = createTempFile("tempFile", null, cacheDir)
@@ -84,11 +89,17 @@ class AddCourActivity : AppCompatActivity() {
                                 title.toRequestBody("text/plain".toMediaTypeOrNull())
                             val descriptionRequestBody =
                                 description.toRequestBody("text/plain".toMediaTypeOrNull())
+                            val matiereRequestBody =
+                                matiere.toRequestBody("text/plain".toMediaTypeOrNull())
+                            val classeRequestBody =
+                                classe.toRequestBody("text/plain".toMediaTypeOrNull())
 
                             // Call the API to add the course
                             val response = apiService.addCourse(
                                 nomRequestBody,
                                 descriptionRequestBody,
+                                matiereRequestBody,
+                                classeRequestBody,
                                 filePart
                             )
 

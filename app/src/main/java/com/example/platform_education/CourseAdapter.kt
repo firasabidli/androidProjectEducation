@@ -22,6 +22,8 @@ class CourseAdapter(private val context: Context, private val courses: JSONArray
     class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val textViewName: TextView = itemView.findViewById(R.id.textViewName)
         val textViewDescription: TextView = itemView.findViewById(R.id.textViewDescription)
+        val textViewMatiere: TextView = itemView.findViewById(R.id.textViewMatiere)
+        val textViwClasse: TextView = itemView.findViewById(R.id.textViewClasse)
         val textViewFile: TextView = itemView.findViewById(R.id.textViewFile)
         val editButton: Button = itemView.findViewById(R.id.btnedit)
         val deleteButton: Button = itemView.findViewById(R.id.btndelete)
@@ -34,14 +36,18 @@ class CourseAdapter(private val context: Context, private val courses: JSONArray
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
 
-            val courseObject: JSONObject = courses.getJSONObject(position)
-            val title = courseObject.getString("title")
-            val description = courseObject.optString("description", "")  // Utilisez optString pour gérer les valeurs nulles
-            val fichierPath = courseObject.getString("file")
+        val courseObject: JSONObject = courses.getJSONObject(position)
+        val title = courseObject.getString("title")
+        val matiere = courseObject.getString("matiere")
+        val classe = courseObject.getString("classe")
+        val description = courseObject.optString("description", "")  // Utilisez optString pour gérer les valeurs nulles
+        val fichierPath = courseObject.getString("file")
 
-            holder.textViewName.text = title
-            holder.textViewDescription.text = description
-            holder.textViewFile.text = fichierPath
+        holder.textViewName.text = title
+        holder.textViewMatiere.text = matiere
+        holder.textViwClasse.text = classe
+        holder.textViewDescription.text = description
+        holder.textViewFile.text = fichierPath
         holder.editButton.setOnClickListener {
             try {
                 val courseId = courseObject.getString("_id")

@@ -70,6 +70,8 @@ interface ApiService {
     suspend fun addCourse(
         @Part("title") title: RequestBody,
         @Part("description") description: RequestBody,
+        @Part("matiere") matiere: RequestBody,
+        @Part("classe") clasee: RequestBody,
         @Part file: MultipartBody.Part
     ): Response<ResponseBody>
 }

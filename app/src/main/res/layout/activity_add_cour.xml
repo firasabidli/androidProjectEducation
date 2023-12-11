@@ -3,53 +3,149 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:paddingLeft="16dp"
     android:paddingTop="16dp"
     android:paddingRight="16dp"
     android:orientation="vertical"
     android:paddingBottom="16dp"
+    android:background="@drawable/bgcoursaddcours"
+    android:gravity="center_vertical|center_horizontal"
     tools:context=".AddCourActivity">
-    <Button
-        android:id="@+id/buttonAjouterCours"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
-        android:text="Ajouter le cours" />
-    <EditText
-        android:id="@+id/editTextNom"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="Nom du cours"/>
 
-    <EditText
-        android:id="@+id/editTextDescription"
-        android:layout_width="match_parent"
+    <androidx.cardview.widget.CardView
+        android:layout_width="350dp"
         android:layout_height="wrap_content"
-        android:layout_below="@id/editTextNom"
-        android:layout_marginTop="8dp"
-        android:hint="Description du cours"/>
-    <EditText
-        android:id="@+id/editTextFichier"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/editTextNom"
-        android:layout_marginTop="8dp"
-        android:hint=""/>
-    <Button
-        android:id="@+id/buttonSelectFile"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/editTextDescription"
-        android:layout_marginTop="16dp"
-        android:text="Sélectionner un fichier" />
+        android:layout_margin="30dp"
+        app:cardCornerRadius="30dp"
+        app:cardElevation="20dp"
+        android:background="@drawable/custom_edittext"
+        android:gravity="center_horizontal"
+        android:layout_marginTop="30dp"
+        android:layout_marginBottom="30dp">
 
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_gravity="center_horizontal"
+            android:padding="24dp">
 
-    <Button
-        android:id="@+id/buttonaffiche"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/editTextDescription"
-        android:layout_marginTop="16dp"
-        android:text="Afficher liste des cours" />
+            <TextView
+                android:id="@+id/text"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="10"
+                android:layout_marginTop="8dp"
+                android:hint="Add a course"
+                android:paddingLeft="10dp"
+                android:textStyle="bold"
+                android:gravity="center"
+                android:textSize="20sp"
+                android:textColor="@color/black"/>
+
+            <EditText
+                android:id="@+id/editTextNom"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:drawablePadding="8dp"
+                android:background="@drawable/custom_edittext"
+                android:hint="Course Name"
+                android:textColor="@color/black"
+                android:textColorHighlight="@color/cardview_dark_background"
+                android:layout_marginTop="20dp"
+                android:paddingLeft="20dp"/>
+
+            <EditText
+                android:id="@+id/editTextDescription"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:drawablePadding="8dp"
+                android:background="@drawable/custom_edittext"
+                android:hint="Course Description"
+                android:textColor="@color/black"
+                android:textColorHighlight="@color/cardview_dark_background"
+                android:layout_marginTop="20dp"
+                android:paddingLeft="20dp"/>
+
+            <EditText
+                android:id="@+id/editTextMatiere"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:drawablePadding="8dp"
+                android:background="@drawable/custom_edittext"
+                android:hint="Subject"
+                android:textColor="@color/black"
+                android:textColorHighlight="@color/cardview_dark_background"
+                android:layout_marginTop="20dp"
+                android:paddingLeft="20dp"/>
+
+            <EditText
+                android:id="@+id/editTextClasse"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:drawablePadding="8dp"
+                android:background="@drawable/custom_edittext"
+                android:hint="Class"
+                android:textColor="@color/black"
+                android:textColorHighlight="@color/cardview_dark_background"
+                android:layout_marginTop="20dp"
+                android:paddingLeft="20dp"/>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <Button
+                    android:id="@+id/buttonSelectFile"
+                    android:layout_width="150dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:textStyle="bold"
+                    android:text="Select a File" />
+
+                <TextView
+                    android:id="@+id/editTextFichier"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:layout_marginTop="8dp"
+                    android:hint=""
+                    android:paddingLeft="10dp"/>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <Button
+                    android:id="@+id/buttonAjouterCours"
+                    android:layout_width="140dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="16dp"
+                    android:text="Add"
+                    android:textStyle="bold"
+                    android:drawableLeft="@drawable/baseline_add_24"/>
+
+                <Space
+                    android:layout_width="16dp"
+                    android:layout_height="1dp" />
+
+                <Button
+                    android:id="@+id/buttonaffiche"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/editTextDescription"
+                    android:layout_marginTop="16dp"
+                    android:text="Display"
+                    android:textStyle="bold"
+                    android:drawableLeft="@drawable/baseline_checklist_24"/>
+            </LinearLayout>
+
+        </LinearLayout>
+
+    </androidx.cardview.widget.CardView>
 
 </LinearLayout>
