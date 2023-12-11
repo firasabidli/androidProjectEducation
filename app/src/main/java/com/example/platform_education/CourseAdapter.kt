@@ -8,6 +8,10 @@ import android.widget.Button
 import android.widget.TextView
 import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
+import com.android.volley.Request
+import com.android.volley.Response
+import com.android.volley.toolbox.JsonObjectRequest
+import com.android.volley.toolbox.Volley
 import org.json.JSONArray
 import org.json.JSONException
 import org.json.JSONObject
@@ -20,6 +24,7 @@ class CourseAdapter(private val context: Context, private val courses: JSONArray
         val textViewDescription: TextView = itemView.findViewById(R.id.textViewDescription)
         val textViewFile: TextView = itemView.findViewById(R.id.textViewFile)
         val editButton: Button = itemView.findViewById(R.id.btnedit)
+        val deleteButton: Button = itemView.findViewById(R.id.btndelete)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
@@ -56,8 +61,33 @@ class CourseAdapter(private val context: Context, private val courses: JSONArray
                 Toast.makeText(context, "An unexpected error occurred", Toast.LENGTH_SHORT).show()
             }
         }
+        holder.deleteButton.setOnClickListener {
+            // Handle delete button click
+            val courseId = courseObject.getString("_id")
+            deleteCourse(courseId, position)
+        }
     }
+    private fun deleteCourse(courseId: String, position: Int) {
+        val url = "http://192.168.56.1:8080/courses/$courseId"
 
+        val jsonObjectRequest = JsonObjectRequest(
+            Request.Method.DELETE, url, null,
+            Response.Listener { response ->
+                // Handle the course deletion response
+                // Remove the item from the list and notify the adapter
+                courses.remove(position)
+                notifyItemRemoved(position)
+                notifyItemRangeChanged(position, itemCount)
+                Toast.makeText(context, "Course deleted successfully", Toast.LENGTH_SHORT).show()
+            },
+            Response.ErrorListener { error ->
+                // Handle errors when deleting the course
+                Toast.makeText(context, "Error deleting course", Toast.LENGTH_SHORT).show()
+            })
+
+        // Add the request to the RequestQueue
+        Volley.newRequestQueue(context).add(jsonObjectRequest)
+    }
 
 
     override fun getItemCount(): Int {

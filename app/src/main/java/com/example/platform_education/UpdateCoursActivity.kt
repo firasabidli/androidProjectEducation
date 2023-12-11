@@ -1,5 +1,6 @@
 package com.example.platform_education
 // UpdateCoursActivity.kt
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.widget.Button
@@ -78,6 +79,10 @@ class UpdateCoursActivity : AppCompatActivity() {
             Response.Listener { response ->
                 // Handle the course update response
                 Toast.makeText(this@UpdateCoursActivity, "Update successful: $response",Toast.LENGTH_SHORT).show()
+                val intent =
+                    Intent(this@UpdateCoursActivity, AffichageCourActivity::class.java)
+                startActivity(intent)
+                finish()
             },
             Response.ErrorListener { error ->
                 // Log the error for debugging
