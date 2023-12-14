@@ -39,9 +39,9 @@ class LocationActivity : AppCompatActivity(), OnMapReadyCallback {
                 mMap.isMyLocationEnabled = true
 
                 // Add a marker at the specified location and move the camera
-                val bouSalemLocation = LatLng(36.4495, 8.7899) // Replace with the actual coordinates
-                mMap.addMarker(MarkerOptions().position(bouSalemLocation).title("Marker in Bou Salem"))
-                mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(bouSalemLocation, 15f))
+                val isetbizerteLocation = LatLng(37.2348478, 9.8854808) // Replace with the actual coordinates
+                mMap.addMarker(MarkerOptions().position(isetbizerteLocation).title("Marker in Bou Salem"))
+                mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(isetbizerteLocation, 15f))
             } else {
                 // Request location permissions
                 ActivityCompat.requestPermissions(

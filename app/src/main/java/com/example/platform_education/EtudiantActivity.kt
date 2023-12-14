@@ -14,6 +14,7 @@ import com.google.android.material.navigation.NavigationView
 
 
 class EtudiantActivity : AppCompatActivity() {
+
     private lateinit var toolbar: Toolbar
     private lateinit var drawerLayout: DrawerLayout
     override fun onCreate(savedInstanceState: Bundle?) {

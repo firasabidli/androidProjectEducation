@@ -110,7 +110,14 @@ class ProfileAdminActivity : AppCompatActivity() {
             // Handle the "Reject" button click
             deleteEtudiant(etudiant)
         }
-
+        etudiantAdapter.setOnItemClickListener { etudiant ->
+            // Call showNotification when needed
+            EtudiantAdapter.showNotification(
+                this@ProfileAdminActivity,
+                "permission SIGN IN ",
+                "You are accepted"
+            )
+        }
         recyclerView.adapter = etudiantAdapter
     }
 

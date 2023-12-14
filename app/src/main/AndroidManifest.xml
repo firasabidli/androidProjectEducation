@@ -9,6 +9,12 @@
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.VIBRATE" />
+
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
+
+
+
 
     <application
         android:allowBackup="true"
@@ -22,6 +28,9 @@
         tools:targetApi="31">
         <activity
             android:name=".AffichageCourActivity"
+            android:exported="false" />
+        <activity
+            android:name=".UpdateCoursActivity"
             android:exported="false" />
         <activity
             android:name=".AddCourActivity"
@@ -67,7 +76,7 @@
 
         <meta-data
             android:name="com.google.android.geo.API_KEY"
-            android:value="AIzaSyAEZnP1EQl0QTDspVMsKO9KRXHIR0bTRX4" />
+            android:value="AIzaSyAcTJD-UZkLC3Lz6xp_ET9ktERPALSnFUI" />
     </application>
 
 </manifest>

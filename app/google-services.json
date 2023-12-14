@@ -1,13 +1,13 @@
 {
   "project_info": {
-    "project_number": "118161554520",
-    "project_id": "androidprojecteducation",
-    "storage_bucket": "androidprojecteducation.appspot.com"
+    "project_number": "240218646733",
+    "project_id": "plateformeeducation-28e0d",
+    "storage_bucket": "plateformeeducation-28e0d.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:118161554520:android:b7036fc080f50476851e2d",
+        "mobilesdk_app_id": "1:240218646733:android:85b1c6e9113a254c65e184",
         "android_client_info": {
           "package_name": "com.example.platform_education"
         }
@@ -15,7 +15,7 @@
       "oauth_client": [],
       "api_key": [
         {
-          "current_key": "AIzaSyBPu84M1GD2SQgAGElP3MrVAe8cRT5tRGA"
+          "current_key": "AIzaSyC1zx0pZrjm3Hpb54jjeqZRErjzV7Gow-M"
         }
       ],
       "services": {
